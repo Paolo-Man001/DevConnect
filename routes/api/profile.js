@@ -143,4 +143,29 @@ router.get('/', async ( req, res ) => {
 });   // END router.get() ~ GET api/profile : Get ALL profiles
 
 
+/* @route   GET api/profile/user/:user_id
+*  @desc    Get profile by user ID
+*  @access  Public
+* */
+router.get('/user/:user_id', async ( req, res ) => {
+   try {
+      const profile = await Profile.findOne({ user: req.params.user_id })
+          .populate('user', [ 'name', 'avatar' ]);
+
+      //--- CHECK if User-Profile exists:
+      if ( !profile )
+         return res.status(400).json({ msg: 'Profile Not Found!' });
+
+      await res.json(profile);
+   } catch ( err ) {
+      console.log(err.message);
+
+      //-- CHECK for a certain type of Message:
+      if ( err.kind === 'ObjectId' ) {
+         return res.status(400).json({ msg: 'Profile Not Found!' });
+      }
+      res.status(500).send('Server Error');
+   }
+});   // END router.get() ~ GET api/profile : Get ALL profiles
+
 module.exports = router;
