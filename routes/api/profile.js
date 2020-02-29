@@ -28,7 +28,7 @@ router.get('/me', auth, async ( req, res ) => {
       res.status(500).send('Server Error');
    }
 
-}); // END router.get()
+}); // END router.get() ~ GET api/profile/me : Get current user's profile
 
 
 /* @route   POST api/profile
@@ -108,6 +108,7 @@ router.post('/',
                  { new: false }
              );
 
+             // console.log(profileFields.social.twitter);
              return res.json(profile);
           }
 
@@ -121,11 +122,25 @@ router.post('/',
           res.status(500).send('Server Error');
        }
 
-       // console.log(profileFields.social.twitter);
        // res.send('Hello and Welcome');
 
     }
-);  // END router.post()
+);  // END router.post() ~ POST api/profile : Create or Update a user profile
+
+
+/* @route   GET api/profile
+*  @desc    Get ALL profiles
+*  @access  Public
+* */
+router.get('/', async ( req, res ) => {
+   try {
+      const profiles = await Profile.find().populate('user', [ 'name', 'avatar' ]);
+      await res.json(profiles);
+   } catch ( err ) {
+      console.log(err.message);
+      res.status(500).send('Server Error');
+   }
+});   // END router.get() ~ GET api/profile : Get ALL profiles
 
 
 module.exports = router;
