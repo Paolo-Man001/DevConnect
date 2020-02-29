@@ -1,7 +1,7 @@
 # MERN Stack Development
 ## Dev Connect - A Social Network for Developers
 
-**Building with:**  
+**Build Stack:**  
 MongodDB <br>
 ExpressJS <br>
 ReactJs <br>
