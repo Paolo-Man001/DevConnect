@@ -166,6 +166,6 @@ router.get('/user/:user_id', async ( req, res ) => {
       }
       res.status(500).send('Server Error');
    }
-});   // END router.get() ~ GET api/profile : Get ALL profiles
+});   // END router.get() ~ GET api/profile/user/:user_id : Get profile by user ID
 
 module.exports = router;
