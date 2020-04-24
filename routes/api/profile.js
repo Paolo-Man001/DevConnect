@@ -7,10 +7,10 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 
-/* @route   GET api/profile/me
-*  @desc    Get current user's profile
-*  @access  Private
-* */
+/** @route   GET api/profile/me
+ *  @desc    Get current user's profile
+ *  @access  Private
+ * */
 router.get('/me', auth, async ( req, res ) => {
 
    try {
@@ -28,13 +28,13 @@ router.get('/me', auth, async ( req, res ) => {
       res.status(500).send('Server Error');
    }
 
-}); // END router.get() ~ GET api/profile/me : Get current user's profile
+}); // END router.get() --> GET api/profile/me : Get current user's profile
 
 
-/* @route   POST api/profile
-*  @desc    Create or Update a user profile
-*  @access  Private
-* */
+/** @route   POST api/profile
+ *  @desc    Create or Update a user profile
+ *  @access  Private
+ * */
 router.post('/',
     [
        // auth and validation(check) middleware
@@ -125,13 +125,13 @@ router.post('/',
        // res.send('Hello and Welcome');
 
     }
-);  // END router.post() ~ POST api/profile : Create or Update a user profile
+);  // END router.post() --> POST api/profile : Create or Update a user profile
 
 
-/* @route   GET api/profile
-*  @desc    Get ALL profiles
-*  @access  Public
-* */
+/** @route   GET api/profile
+ *  @desc    Get ALL profiles
+ *  @access  Public
+ * */
 router.get('/', async ( req, res ) => {
    try {
       const profiles = await Profile.find().populate('user', [ 'name', 'avatar' ]);
@@ -140,13 +140,13 @@ router.get('/', async ( req, res ) => {
       console.log(err.message);
       res.status(500).send('Server Error');
    }
-});   // END router.get() ~ GET api/profile : Get ALL profiles
+});   // END router.get() --> GET api/profile : Get ALL profiles
 
 
-/* @route   GET api/profile/user/:user_id
-*  @desc    Get profile by user ID
-*  @access  Public
-* */
+/** @route   GET api/profile/user/:user_id
+ *  @desc    Get profile by user ID
+ *  @access  Public
+ * */
 router.get('/user/:user_id', async ( req, res ) => {
    try {
       const profile = await Profile.findOne({ user: req.params.user_id })
@@ -154,7 +154,7 @@ router.get('/user/:user_id', async ( req, res ) => {
 
       //--- CHECK if User-Profile exists:
       if ( !profile )
-         return res.status(400).json({ msg: 'Profile Not Found!' });
+         return res.status(400).json({ msg: 'User Profile Not Found!' });
 
       await res.json(profile);
    } catch ( err ) {
@@ -162,11 +162,11 @@ router.get('/user/:user_id', async ( req, res ) => {
 
       //-- CHECK for a certain type of Message:
       if ( err.kind === 'ObjectId' ) {
-         return res.status(400).json({ msg: 'Profile Not Found!' });
+         return res.status(400).json({ msg: 'User Profile Not Found!' });
       }
       res.status(500).send('Server Error');
    }
 
-});   // END router.get() ~ GET api/profile/user/:user_id : GET profile by user ID
+});   // END router.get() --> GET api/profile/user/:user_id : GET profile by user ID
 
 module.exports = router;

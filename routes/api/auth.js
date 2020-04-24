@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const config = require('config');
 
-/* @route   GET api/auth
-*  @desc    get auth user data with verified token
-*  @access  Public
-* */
+/** @route   GET api/auth
+ *  @desc    get auth user data with verified token
+ *  @access  Public
+ * */
 
 // Add Middleware 'auth' as 2nd param to makes this Route PROTECTED
 router.get('/', auth, async ( req, res ) => {
@@ -28,10 +28,10 @@ router.get('/', auth, async ( req, res ) => {
 });
 
 
-/* @route   POST api/auth
-*  @desc    Authenticate user & get token
-*  @access  Public
-* */
+/** @route   POST api/auth
+ *  @desc    Authenticate user & get token
+ *  @access  Public
+ * */
 router.post('/',
     // property for Express-Validator to check and validate: 'email', 'password'
     [
